@@ -1,0 +1,24 @@
+apiVersion: mongodb.com/v1
+kind: MongoDB
+metadata:
+  labels:
+    service: mongo
+  name: mongo
+spec:
+  members: 3
+  type: ReplicaSet
+  version: "4.2.6"
+  security:
+    authentication:
+      modes: ["SCRAM"]
+  users:
+    - name: user
+      db: admin
+      passwordSecretRef:
+        name: mongo-password
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: todo-mongo-scram

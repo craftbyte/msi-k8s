@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - image: ghcr.io/craftbyte/msi-go
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongo-svc.todo.svc.cluster.local:27017/todo?replicaSet=mongo&authSource=admin
+        - name: MONGO_USERNAME
+          value: user
+        - name: MONGO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mongo-password
+              key: password
+        imagePullPolicy: IfNotPresent
+        # livenessProbe:
+        #   exec:
+        #     command:
+        #     - /wget
+        #     - --no-verbose
+        #     - --tries=1
+        #     - --spider
+        #     - http://localhost:8080/ping
+        #   failureThreshold: 3
+        #   periodSeconds: 10
+        name: api
+      imagePullSecrets:
+      - name: regcred
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
