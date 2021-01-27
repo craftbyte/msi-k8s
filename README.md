@@ -4,15 +4,18 @@
 Make sure you have authenticated to [GitHub Container Repository](https://ghcr.io/) and added the personal access to your docker config.json. This project also requires the [MongoDB Operator](https://github.com/mongodb/mongodb-kubernetes-operator/blob/master/docs/install-upgrade.md) which is installed in the submodule k8s-mongo. Make sure to run `git submodule update --init`.
 
 ```bash
-# Set the registry credentials for the Docker Registry on GitHub
-kubectl -n todo create secret docker-registry regcred --docker-server=ghcr.io --docker-username=<github-username> --docker-password=<github-personal-access-token>
 # Get git submodules working, you can also clone with the --recurse-submodules flag
 git submodule update --init --recursive
+# We use the todo namespace
+kubectl create namespace todo
+# Set the registry credentials for the Docker Registry on GitHub so we can pull the images
+kubectl -n todo create secret docker-registry regcred --docker-server=ghcr.io --docker-username=<github-username> --docker-password=<github-personal-access-token>
 # First time install the CRD for mongo operator, also run this then the submodule is updated
-kubectl create -f k8s-mongo/deploy/crds/mongodb.com_mongodb_crd.yaml
+kubectl -n todocreate -f k8s-mongo/deploy/crds/mongodb.com_mongodb_crd.yaml
 # Deploy the mongo operator
-kubectl apply -f k8s-mongo/deploy/operator
-kubectl apply -f k8s
+kubectl -n todo apply -f k8s-mongo/deploy/operator
+# Deploy the app
+kubectl -n todo apply -f k8s
 ```
 
 ## App access
