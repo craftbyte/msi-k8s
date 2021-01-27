@@ -20,7 +20,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: ghcr.io/craftbyte/msi-nginx:v1
+      - image: ghcr.io/craftbyte/msi-nginx:v2
         livenessProbe:
           httpGet:
             path: /

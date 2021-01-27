@@ -26,3 +26,4 @@ For some reason the mongo operator does not start inside of minikube for me. You
 
 ## Screenshots
 ![App Screenshot](.github/readme-img/app.jpg)
+[No-Downtime Deployment](https://youtu.be/OHDCrrH94GQ)
