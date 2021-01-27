@@ -20,3 +20,6 @@ You can find the current version of the app at [todo.v0.si](http://todo.v0.si/).
 
 ## Notes
 For some reason the mongo operator does not start inside of minikube for me. You results may vary. 
+
+## Screenshots
+![App Screenshot](.github/readme-img/app.jpg)
