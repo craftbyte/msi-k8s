@@ -21,15 +21,22 @@ spec:
     spec:
       containers:
       - image: ghcr.io/craftbyte/msi-nginx:v1
-        # livenessProbe:
-        #   exec:
-        #     command:
-        #     - service
-        #     - nginx
-        #     - status
-        #   failureThreshold: 3
-        #   periodSeconds: 10
-        #   timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 5
+        startupProbe:
+          httpGet:
+            path: /
+            port: 80
+          failureThreshold: 30
+          periodSeconds: 10
         name: nginx
       imagePullSecrets:
       - name: regcred
