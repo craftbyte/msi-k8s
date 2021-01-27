@@ -20,7 +20,7 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: ghcr.io/craftbyte/msi-nginx
+      - image: ghcr.io/craftbyte/msi-nginx:v1
         # livenessProbe:
         #   exec:
         #     command:

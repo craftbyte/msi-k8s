@@ -21,4 +21,6 @@ spec:
           db: admin
         - name: userAdminAnyDatabase
           db: admin
+        - name: dbOwner
+          db: msi-docker
       scramCredentialsSecretName: todo-mongo-scram

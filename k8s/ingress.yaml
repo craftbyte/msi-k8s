@@ -4,7 +4,7 @@ metadata:
   name: todo-ingress
 spec:
   rules:
-  - host: todo.127.0.0.1.xip.io
+  - host: todo.v0.si
     http:
       paths:
       - path: /api

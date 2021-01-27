@@ -14,12 +14,12 @@ func addRoutes(r *gin.Engine) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	r.GET("/ping", func(c *gin.Context) {
+	r.GET("/api/ping", func(c *gin.Context) {
 		c.JSON(http.StatusAccepted, gin.H{
 			"pong": true,
 		})
 	})
-	r.GET("/tasks", func(c *gin.Context) {
+	r.GET("/api/tasks", func(c *gin.Context) {
 		tasks, err := getAllTasks(db)
 		if err != nil {
 			log.Println(err)
@@ -27,7 +27,7 @@ func addRoutes(r *gin.Engine) {
 		}
 		c.JSON(http.StatusOK, tasks)
 	})
-	r.POST("/tasks", func(c *gin.Context) {
+	r.POST("/api/tasks", func(c *gin.Context) {
 		var json NewTask
 		err := c.BindJSON(&json)
 		if err != nil {
@@ -45,7 +45,7 @@ func addRoutes(r *gin.Engine) {
 		}
 		c.JSON(http.StatusAccepted, task)
 	})
-	r.PATCH("/tasks/:id", func(c *gin.Context) {
+	r.PATCH("/api/tasks/:id", func(c *gin.Context) {
 		oid, err := primitive.ObjectIDFromHex(c.Param("id"))
 		if err != nil {
 			c.AbortWithError(http.StatusBadRequest, err)
@@ -64,7 +64,7 @@ func addRoutes(r *gin.Engine) {
 		}
 		c.JSON(http.StatusAccepted, task)
 	})
-	r.DELETE("/tasks/:id", func(c *gin.Context) {
+	r.DELETE("/api/tasks/:id", func(c *gin.Context) {
 		oid, err := primitive.ObjectIDFromHex(c.Param("id"))
 		if err != nil {
 			c.AbortWithError(http.StatusBadRequest, err)

@@ -20,10 +20,10 @@ spec:
         app: api
     spec:
       containers:
-      - image: ghcr.io/craftbyte/msi-go
+      - image: ghcr.io/craftbyte/msi-go:v1
         env:
         - name: MONGO_URL
-          value: mongodb://mongo-svc.todo.svc.cluster.local:27017/todo?replicaSet=mongo&authSource=admin
+          value: mongodb://mongo-svc.todo.svc.cluster.local:27017/?replicaSet=mongo&authSource=admin
         - name: MONGO_USERNAME
           value: user
         - name: MONGO_PASSWORD
